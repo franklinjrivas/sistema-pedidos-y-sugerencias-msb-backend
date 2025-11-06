@@ -13,10 +13,10 @@ class HomeService
     public function __construct(HttpService $httpService)
     {
         $this->httpService = $httpService;
-        $this->sistema = env('SISTEMA_MSB');
-        $this->url_roles = env('URL_ROLES_USER_X_SISTEMA_API');
-        $this->url_menu = env('URL_ROLES_GENERATE_MENU_API');
-        $this->url_change_rol = env('URL_CHANGE_SELECTED_ROL_API');
+        $this->sistema = config('environment.SISTEMA_MSB');
+        $this->url_roles = config('environment.URL_ROLES_USER_X_SISTEMA_API');
+        $this->url_menu = config('environment.URL_ROLES_GENERATE_MENU_API');
+        $this->url_change_rol = config('environment.URL_CHANGE_SELECTED_ROL_API');
     }
 
     public function roles(string $jwtToken): array

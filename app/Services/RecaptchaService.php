@@ -11,8 +11,8 @@ class RecaptchaService
     public function __construct(HttpService $httpService)
     {
         $this->httpService = $httpService;
-        $this->verify_url = env('GOOGLE_RECAPTCHA_VERIFY_URL');
-        $this->private_key = env('GOOGLE_RECAPTCHA_KEY_PRIVATE');
+        $this->verify_url = config('environment.GOOGLE_RECAPTCHA_VERIFY_URL');
+        $this->private_key = config('environment.GOOGLE_RECAPTCHA_KEY_PRIVATE');
     }
 
     public function validateRecaptchaV2($token): bool

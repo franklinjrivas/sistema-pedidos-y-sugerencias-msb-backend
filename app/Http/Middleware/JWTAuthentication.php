@@ -55,7 +55,7 @@ class JWTAuthentication
 
             $request->merge([
                 'JWT_token' => $token,
-                'JWT_username' => $validate['username']
+                'JWT_username' => $validate['data']['username']
             ]);
 
             return $next($request);

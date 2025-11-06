@@ -74,4 +74,24 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    public function validate_jwt(Request $request)
+    {
+        try {
+            $JWT_token = $request->JWT_token;
+
+            $validate = $this->authService->validateJWT($JWT_token);
+
+            if (!isset($validate) || empty($validate)) throw new \Exception('El servicio de Autenticación está presentando problemas...');
+
+            if (!$validate['success']) throw new \Exception($validate['mensaje']);
+
+            return response()->json($validate);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'mensaje' => $e->getMessage()
+            ]);
+        }
+    }
 }

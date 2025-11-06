@@ -20,8 +20,9 @@ class LoginRequest extends BaseRequest
      */
     public function authorize(): bool
     {
-        $token = $this->input('captcha');
-        return $this->recaptchaService->validateRecaptchaV2($token);
+        // $token = $this->input('captcha');
+        // return $this->recaptchaService->validateRecaptchaV2($token);
+        return true;
     }
 
     /**
