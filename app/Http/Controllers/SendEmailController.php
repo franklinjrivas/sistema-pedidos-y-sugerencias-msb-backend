@@ -17,20 +17,12 @@ class SendEmailController extends Controller
 
     public function send_mail(Request $request)
     {
-        try {
-            $login = $this->emailService->send_respuesta_ciudadano($request->all());
+        $login = $this->emailService->send_respuesta_ciudadano($request->all());
 
-            if (!isset($login) || empty($login)) throw new \Exception('El servicio de Autenticación está presentando problemas...');
+        if (!isset($login) || empty($login))  validationError('El servicio de Autenticación está presentando problemas...');
 
-            if (!$login['success']) throw new \Exception($login['mensaje']);
+        if (!$login['success'])  validationError($login['mensaje']);
 
-            return response()->json($login);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json($login);
     }
-
 }

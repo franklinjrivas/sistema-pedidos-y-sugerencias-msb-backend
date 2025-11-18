@@ -9,8 +9,6 @@ use App\Services\DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-
-
 class WsService
 {
     public function v1_bi_registros_reporte(?array $datos)

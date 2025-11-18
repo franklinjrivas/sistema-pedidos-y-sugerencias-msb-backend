@@ -22,114 +22,68 @@ class MantenimientoController extends Controller
 
     public function listar_tipo_mantenimiento(Request $request)
     {
-        try {
+        $datos =  $request->all();
+        $listatipos = $this->MantenimientoService->listar_tipo_mantenimiento();
 
-            $datos =  $request->all();
-            $listatipos = $this->MantenimientoService->listar_tipo_mantenimiento();
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo',
-                'data' =>   $listatipos
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo',
+            'data' =>   $listatipos
+        ]);
     }
     public function listar_areas_insertar_motivos(Request $request)
     {
-        try {
-            $listatipos = $this->MantenimientoService->listar_areas_insertar_motivos();
+        $listatipos = $this->MantenimientoService->listar_areas_insertar_motivos();
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo',
-                'data' =>   $listatipos
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo',
+            'data' =>   $listatipos
+        ]);
     }
     public function listar_tipo_detalla_mantenimiento(Request $request)
     {
-        try {
+        $datos =  $request->all();
+        $listatipos = $this->MantenimientoService->listar_tipo_detalla_mantenimiento( $datos);
 
-            $datos =  $request->all();
-            $listatipos = $this->MantenimientoService->listar_tipo_detalla_mantenimiento( $datos);
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo',
-                'data' =>   $listatipos
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo',
+            'data' =>   $listatipos
+        ]);
     }
     public function listar_data_mantenimiento(Request $request)
     {
-        try {
+        $datos =  $request->all();
+        $listadata = $this->MantenimientoService->listar_data_mantenimiento($datos);
 
-            $datos =  $request->all();
-            $listadata = $this->MantenimientoService->listar_data_mantenimiento($datos);
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo',
-                'data' =>   $listadata
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo',
+            'data' =>   $listadata
+        ]);
     }
     public function eliminar_mantenimiento(Request $request)
     {
-        try {
-            $usuario = $request->JWT_username;
-            $datos =  $request->all();
-            $eliminadata = $this->MantenimientoService->eliminar_mantenimiento($datos, $usuario);
+        $usuario = $request->JWT_username;
+        $datos =  $request->all();
+        $eliminadata = $this->MantenimientoService->eliminar_mantenimiento($datos, $usuario);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Eliminado correctamente',
-                'data' =>   $eliminadata
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Eliminado correctamente',
+            'data' =>   $eliminadata
+        ]);
     }
     public function guardar_mantenimiento(Request $request)
     {
-        try {
-            // $usuario = $request->JWT_username;
-            $datos =  $request->all();
-            $eliminadata = $this->MantenimientoService->guardar_mantenimiento($datos);
+        $datos =  $request->all();
+        $eliminadata = $this->MantenimientoService->guardar_mantenimiento($datos);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Eliminado correctamente',
-                'data' =>   $eliminadata
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Eliminado correctamente',
+            'data' =>   $eliminadata
+        ]);
     }
 }

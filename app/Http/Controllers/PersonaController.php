@@ -22,240 +22,143 @@ class PersonaController extends Controller
 
     public function listarpersona(Request $request)
     {
-        try {
+        $codigo = $request->codigo ? $request->codigo : null;
+        $numerodoctit = $request->numerodoctit ? $request->numerodoctit : null;
+        $apepaternotit = $request->apepaternotit ? $request->apepaternotit : null;
+        $apematernotit = $request->apematernotit ? $request->apematernotit : null;
+        $nombretit = $request->nombretit ? $request->nombretit : null;
+        $numerodocon = $request->numerodocon ? $request->numerodocon : null;
+        $apepaternocon = $request->apepaternocon ? $request->apepaternocon : null;
+        $apematernocon = $request->apematernocon ? $request->apematernocon : null;
+        $nombrecon = $request->nombrecon ? $request->nombrecon : null;
 
-            $codigo = $request->codigo ? $request->codigo : null;
-            $numerodoctit = $request->numerodoctit ? $request->numerodoctit : null;
-            $apepaternotit = $request->apepaternotit ? $request->apepaternotit : null;
-            $apematernotit = $request->apematernotit ? $request->apematernotit : null;
-            $nombretit = $request->nombretit ? $request->nombretit : null;
-            $numerodocon = $request->numerodocon ? $request->numerodocon : null;
-            $apepaternocon = $request->apepaternocon ? $request->apepaternocon : null;
-            $apematernocon = $request->apematernocon ? $request->apematernocon : null;
-            $nombrecon = $request->nombrecon ? $request->nombrecon : null;
+        $listarpersona = $this->PersonaService->listar_personas($codigo, $numerodoctit, $apepaternotit,  $apematernotit, $nombretit, $numerodocon, $apepaternocon, $apematernocon, $nombrecon);
 
-            $listarpersona = $this->PersonaService->listar_personas($codigo, $numerodoctit, $apepaternotit,  $apematernotit, $nombretit, $numerodocon, $apepaternocon, $apematernocon, $nombrecon);
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo',
-                'data' =>   $listarpersona
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo',
+            'data' =>   $listarpersona
+        ]);
     }
 
     public function listardocidentidad(Request $request)
     {
-        try {
+        $listardocidentidad = $this->PersonaService->listar_doc_identidad();
 
-            $listardocidentidad = $this->PersonaService->listar_doc_identidad();
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo de Documentos de Identidad',
-                'data' =>   $listardocidentidad
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo de Documentos de Identidad',
+            'data' =>   $listardocidentidad
+        ]);
     }
 
     public function listamotivos(Request $request)
     {
-        try {
-            $id = $request->idcanal;
-            $area = $request->area;
+        $id = $request->idcanal;
+        $area = $request->area;
 
-            $listarmotivos = $this->PersonaService->listar_motivos($id, $area);
+        $listarmotivos = $this->PersonaService->listar_motivos($id, $area);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado motivos',
-                'data' =>   $listarmotivos
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado motivos',
+            'data' =>   $listarmotivos
+        ]);
     }
-
-
     public function listardepartamentos()
     {
-        try {
+        $listardepartamentos = $this->PersonaService->listar_departamentos();
 
-            $listardepartamentos = $this->PersonaService->listar_departamentos();
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo dedepartamentos',
-                'data' =>   $listardepartamentos
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo dedepartamentos',
+            'data' =>   $listardepartamentos
+        ]);
     }
     public function listarprovincias(Request $request)
     {
-        try {
-            $id = $request->id;
-            $desc = $request->desc;
+        $id = $request->id;
+        $desc = $request->desc;
 
-            $listarprovincias = $this->PersonaService->listar_provincias($id, $desc);
+        $listarprovincias = $this->PersonaService->listar_provincias($id, $desc);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo  provincia',
-                'data' =>   $listarprovincias
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo  provincia',
+            'data' =>   $listarprovincias
+        ]);
     }
 
     public function listardistritos(Request $request)
     {
-        try {
-            $id = $request->id;
-            $desc = $request->desc ;
-            $listardistritos = $this->PersonaService->listar_distritos($id, $desc);
+        $id = $request->id;
+        $desc = $request->desc ;
+        $listardistritos = $this->PersonaService->listar_distritos($id, $desc);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo distritos',
-                'data' =>   $listardistritos
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo distritos',
+            'data' =>   $listardistritos
+        ]);
     }
     public function listarurbanizaciones()
     {
-        try {
+        $listarurbanizaciones = $this->PersonaService->listar_urbanizaciones();
 
-            $listarurbanizaciones = $this->PersonaService->listar_urbanizaciones();
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo de urbanizaciones',
-                'data' =>   $listarurbanizaciones
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo de urbanizaciones',
+            'data' =>   $listarurbanizaciones
+        ]);
     }
 
 
     public function listarvias(Request $request)
     {
-        try {
+        $ubigeo = $request->ubigeo;
+        $listarvias = $this->PersonaService->listar_vias($ubigeo);
 
-            $ubigeo = $request->ubigeo;
-            $listarvias = $this->PersonaService->listar_vias($ubigeo);
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado completo de vias',
-                'data' =>   $listarvias
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado completo de vias',
+            'data' =>   $listarvias
+        ]);
     }
     public function detallemesaayuda(Request $request)
     {
-        try {
-            $anio = $request->anio;
-            $codigo = $request->codigo;
-            $tipo = $request->tipo;
-            $datadocumento = $this->PersonaService->detalle_documento($anio,$codigo,$tipo );
+        $anio = $request->anio;
+        $codigo = $request->codigo;
+        $tipo = $request->tipo;
+        $datadocumento = $this->PersonaService->detalle_documento($anio,$codigo,$tipo );
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Datos del documento',
-                'data' =>   $datadocumento
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Datos del documento',
+            'data' =>   $datadocumento
+        ]);
     }
     public function listarinteriores(Request $request)
     {
-        try {
+        $listainteriores = $this->PersonaService->listar_interiores();
 
-            $listainteriores = $this->PersonaService->listar_interiores();
-
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Lista de interiores',
-                'data' =>   $listainteriores
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Lista de interiores',
+            'data' =>   $listainteriores
+        ]);
     }
 
     public function guardarcontribuyente(Request $request)
     {
-        try {
-            $JWT_token = $request->JWT_token;
-            $user = $this->authService->user_magic_ad_match($JWT_token);
-            $informacion= [];
-            $informacion =  $request->all();
-            $guardarcontri = $this->PersonaService->guardar_contribuyente($informacion, $user);
+        $user = $request->JWT_username;
+        $informacion= [];
+        $informacion =  $request->all();
+        $guardarcontri = $this->PersonaService->guardar_contribuyente($informacion, $user);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Lista de interiores',
-                'data' =>   $guardarcontri
-            ]);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Lista de interiores',
+            'data' =>   $guardarcontri
+        ]);
     }
 }

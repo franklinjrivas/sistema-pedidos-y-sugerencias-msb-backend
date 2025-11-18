@@ -15,5 +15,29 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\App\Exceptions\BusinessLogicException $e) {
+            return response()->json([
+                'success' => false,
+                'mensaje' => $e->getMessage(),
+            ]);
+        });
+
+        $exceptions->render(function (Throwable $e) {
+            if (config('app.debug')) {
+                return null;
+            }
+
+            $status = 500;
+            $headers = [];
+
+            if ($e instanceof HttpExceptionInterface) {
+                $status  = $e->getStatusCode();
+                $headers = $e->getHeaders();
+            }
+
+            return response()->json([
+                'success' => false,
+                'mensaje' => 'Error en el servidor. Inténtelo más tarde...',
+            ], $status, $headers);
+        });
     })->create();

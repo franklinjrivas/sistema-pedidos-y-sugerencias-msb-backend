@@ -26,7 +26,6 @@ class EmailService
      */
     public function send_respuesta_ciudadano(array $info): array
     {
-        try {
             $data = $info['informacion'];
             $persona = $data['CTRB_DES'];
             $respuesta = $info['respuesta'];
@@ -43,25 +42,19 @@ class EmailService
 
             $send = $this->send_mail($mail, 'Respuesta a su Pedido', $cuerpoCorreo);
 
-            if (!$send) throw new \Exception('No se pudo enviar el correo');
+            if (!$send)  validationError('No se pudo enviar el correo');
 
-            if (!$send['estado']) throw new \Exception($send['mensaje']);
+            if (!$send['estado'])  validationError($send['mensaje']);
             if ($send['estado']){
                 $enviado = DB::select(
                     'exec piap_qj_tramite_entrada_email_grabar ?,?,?,?,?',
                     [$anio, $codigo, $pase, $respuesta, $usuario]
                 );
             }
-
             return [
                 'success' => true,
                 'mensaje' => 'Correo electrónico enviado correctamente',
             ];
-        } catch (\Throwable $e) {
-            Log::info('EmailService->send_respuesta_ciudadano');
-            Log::info($e);
-            throw new \Exception($e->getMessage());
-        }
     }
 
     /**
@@ -74,7 +67,6 @@ class EmailService
      */
     private function send_mail(string $correo, string $asunto, string $cuerpo): array
     {
-        try {
             $response = Http::timeout(15)
                 ->withOptions(['verify' => false]) // <- ignora SSL
                 ->post($this->sendMailEndpoint, [
@@ -89,14 +81,8 @@ class EmailService
             $data = $response->json();
 
             if (!$response->successful()) {
-                throw new \Exception($data);
+                 validationError($data);
             }
-
             return $data;
-        } catch (\Throwable $e) {
-            Log::info('EmailService->send_mail');
-            Log::info($e);
-            throw new \Exception('Error al enviar el correo electrónico');
-        }
     }
 }

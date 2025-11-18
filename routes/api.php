@@ -14,6 +14,8 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\WsController;
+use App\Http\Middleware\AuditoriaEndpoint;
+
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->middleware(BasicAuthentication::class);
@@ -39,27 +41,27 @@ Route::middleware(JWTAuthentication::class)->prefix('consulta')->group(function 
     Route::post('/listar-vias', [PersonaController::class, 'listarvias']);
     Route::post('/detalle-mesaayuda', [PersonaController::class, 'detallemesaayuda']);
     Route::post('/listar-interiores', [PersonaController::class, 'listarinteriores']);
-    Route::post('/guardar-contribuyente', [PersonaController::class, 'guardarcontribuyente']);
+    Route::post('/guardar-contribuyente', [PersonaController::class, 'guardarcontribuyente'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/listar-motivos', [PersonaController::class, 'listamotivos']);
-    Route::post('/grabar-expediente', [ExpedienteController::class, 'grabar_expediente']);
+    Route::post('/grabar-expediente', [ExpedienteController::class, 'grabar_expediente'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/botones-expediente', [ExpedienteController::class, 'botones_expediente']);
 });
 Route::middleware(JWTAuthentication::class)->prefix('atencion')->group(function () {
     Route::post('/lista-expedientes-pendiente', [AtencionesController::class, 'listaexpedientespendientes']);
     Route::post('/detalle-expediente-pendiente', [AtencionesController::class, 'detalleexpedientependiente']);
-    Route::post('/recepcionar-expediente', [AtencionesController::class, 'recepcionarexpediente']);
+    Route::post('/recepcionar-expediente', [AtencionesController::class, 'recepcionarexpediente'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/lista-expedientes-recepcionados', [AtencionesController::class, 'listaexpedientesrecepcionados']);
     Route::post('/listar-areas', [AtencionesController::class, 'listarareas']);
-    Route::post('/extornar-expediente', [AtencionesController::class, 'extornarexpediente']);
+    Route::post('/extornar-expediente', [AtencionesController::class, 'extornarexpediente'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/cargar-detalle-documento-recepcionados', [AtencionesController::class, 'cargardetalledocumentorecepcionados']);
-    Route::post('/grabar-documento-recepcionados', [AtencionesController::class, 'grabardocumentorecepcionados']);
+    Route::post('/grabar-documento-recepcionados', [AtencionesController::class, 'grabardocumentorecepcionados'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/mostrar-detalle-notificacion', [AtencionesController::class, 'mostrardetallenotificacion']);
     Route::post('/lista-notificacion', [AtencionesController::class, 'listanotificacion']);
-    Route::post('/eliminar-notificacion', [AtencionesController::class, 'eliminarnotificacion']);
+    Route::post('/eliminar-notificacion', [AtencionesController::class, 'eliminarnotificacion'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/cerrar-expediente', [AtencionesController::class, 'cerrar_expediente']);
 
     Route::post('/listar-derivacion', [AtencionesController::class, 'listarderivacion']);
-    Route::post('/derivar-expediente', [AtencionesController::class, 'derivar_expediente']);
+    Route::post('/derivar-expediente', [AtencionesController::class, 'derivar_expediente'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/lista-expedientes-derivados', [AtencionesController::class, 'lista_expedientes_derivados']);
     Route::post('/buscar-expedientes', [AtencionesController::class, 'buscar_expedientes']);
     Route::post('/lista-tipos-busqueda', [AtencionesController::class, 'lista_tipos_busqueda']);
@@ -86,8 +88,8 @@ Route::middleware(JWTAuthentication::class)->prefix('reportes')->group(function 
 Route::middleware(JWTAuthentication::class)->prefix('mantenimiento')->group(function () {
     Route::post('/listar-tipo-mantenimiento', [MantenimientoController::class, 'listar_tipo_mantenimiento']);
     Route::post('/listar-data-mantenimiento', [MantenimientoController::class, 'listar_data_mantenimiento']);
-    Route::post('/eliminar-mantenimiento', [MantenimientoController::class, 'eliminar_mantenimiento']);
-    Route::post('/guardar-mantenimiento', [MantenimientoController::class, 'guardar_mantenimiento']);
+    Route::post('/eliminar-mantenimiento', [MantenimientoController::class, 'eliminar_mantenimiento'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
+    Route::post('/guardar-mantenimiento', [MantenimientoController::class, 'guardar_mantenimiento'])->middleware([JWTAuthentication::class, AuditoriaEndpoint::class]);
     Route::post('/listar-tipo-detalla-mantenimiento', [MantenimientoController::class, 'listar_tipo_detalla_mantenimiento']);
     Route::post('/listar-areas-insertar-motivos', [MantenimientoController::class, 'listar_areas_insertar_motivos']);
 });

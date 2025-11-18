@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 
 class HomeService
@@ -28,7 +27,6 @@ class HomeService
                 'siglas_sistema' => $this->sistema,
             ]
         ];
-
         return $this->httpService->sendRequest('post', $this->url_roles, $params, $headers);
     }
 
@@ -42,7 +40,6 @@ class HomeService
                 'id_rol' => $id_rol
             ]
         ];
-
         return $this->httpService->sendRequest('post', $this->url_menu, $params, $headers);
     }
 
@@ -56,7 +53,6 @@ class HomeService
                 'id_rol_change' => $id_rol_change
             ]
         ];
-
         return $this->httpService->sendRequest('post', $this->url_change_rol, $params, $headers);
     }
 }

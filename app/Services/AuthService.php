@@ -30,11 +30,12 @@ class AuthService
     public function login(string $username, string $password): array
     {
         $params = [
-            'form_params' => [
+            'json' => [
                 'siglas_sistema' => $this->sistema,
                 'username' => $username,
                 'password' => $password,
-                'r' => false
+                'r' => false,
+                'audit' => getAudit(),
             ],
             'auth' => [
                 $this->user_basic,
@@ -49,7 +50,14 @@ class AuthService
     {
         $headers = $this->httpService->bearer_header($jwtToken);
 
-        return $this->httpService->sendRequest('post', $this->url_logout, [], $headers);
+        $params = [
+            'json' => [
+                'siglas_sistema' => $this->sistema,
+                'audit' => getAudit(),
+            ],
+        ];
+
+        return $this->httpService->sendRequest('post', $this->url_logout, $params, $headers);
     }
 
     public function validateJWT(string $jwtToken): array
@@ -64,7 +72,7 @@ class AuthService
         $headers = $this->httpService->bearer_header($jwtToken);
 
         $params = [
-            'form_params' => [
+            'json' => [
                 'siglas_sistema' => $this->sistema,
                 'intranetURL' => $intranetURL,
             ],

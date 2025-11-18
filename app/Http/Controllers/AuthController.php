@@ -19,79 +19,51 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        try {
-            $username = $request->username;
-            $password = $request->password;
+        $username = $request->username;
+        $password = $request->password;
 
-            $login = $this->authService->login($username, $password);
+        $login = $this->authService->login($username, $password);
 
-            if (!isset($login) || empty($login)) throw new \Exception('El servicio de Autenticación está presentando problemas...');
+        if (!isset($login) || empty($login)) validationError('El servicio de Autenticación está presentando problemas...');
 
-            if (!$login['success']) throw new \Exception($login['mensaje']);
+        if (!$login['success']) validationError($login['mensaje']);
 
-            return response()->json($login);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json($login);
     }
 
     public function logout(Request $request)
     {
-        try {
-            $JWT_token = $request->JWT_token;
+        $JWT_token = $request->JWT_token;
 
-            $logout = $this->authService->logout($JWT_token);
+        $logout = $this->authService->logout($JWT_token);
 
-            if (!$logout['success']) throw new \Exception($logout['mensaje']);
+        if (!$logout['success']) validationError($logout['mensaje']);
 
-            return response()->json($logout);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => 'Sesión cerrada'
-            ]);
-        }
+        return response()->json($logout);
     }
 
     public function check_intranet_url(Request $request)
     {
-        try {
-            $JWT_token = $request->JWT_token;
-            $intranetURL = $request->intranetURL;
+        $JWT_token = $request->JWT_token;
+        $intranetURL = $request->intranetURL;
 
-            $check = $this->authService->check_intranet_url($JWT_token, $intranetURL);
+        $check = $this->authService->check_intranet_url($JWT_token, $intranetURL);
 
-            if (!$check['success']) throw new \Exception($check['mensaje']);
+        if (!$check['success']) validationError($check['mensaje']);
 
-            return response()->json($check);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => 'Sesión cerrada'
-            ]);
-        }
+        return response()->json($check);
     }
 
     public function validate_jwt(Request $request)
     {
-        try {
-            $JWT_token = $request->JWT_token;
+        $JWT_token = $request->JWT_token;
 
-            $validate = $this->authService->validateJWT($JWT_token);
+        $validate = $this->authService->validateJWT($JWT_token);
 
-            if (!isset($validate) || empty($validate)) throw new \Exception('El servicio de Autenticación está presentando problemas...');
+        if (!isset($validate) || empty($validate)) validationError('El servicio de Autenticación está presentando problemas...');
 
-            if (!$validate['success']) throw new \Exception($validate['mensaje']);
+        if (!$validate['success']) validationError($validate['mensaje']);
 
-            return response()->json($validate);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json($validate);
     }
 }

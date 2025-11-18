@@ -35,4 +35,9 @@
 
         // FILE
         'URL_EXTENSIONES_METADATOS_API' => $BASE_URL_AUTH.'/api/extensiones-metadatos',
+
+        // LOGS
+        'URL_SAVE_AUDITORIA_ENDPOINT_API' => $BASE_URL_AUTH.'/api/auditoria/endpoints/save',
+        'URL_SAVE_AUDITORIA_DML_API' => $BASE_URL_AUTH.'/api/auditoria/dml/save',
+        'URL_SAVE_AUDITORIA_ERROR_API' => $BASE_URL_AUTH.'/api/auditoria/error/save',
     ];

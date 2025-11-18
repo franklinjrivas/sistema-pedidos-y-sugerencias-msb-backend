@@ -21,354 +21,204 @@ class AtencionesController extends Controller
 
     public function listaexpedientespendientes(Request $request)
     {
-        try {
-            $datos =  $request->all();
+        $datos =  $request->all();
 
-            $listarmotivos = $this->AtencionesService->listar_expedientes_pendientes($datos);
+        $listarmotivos = $this->AtencionesService->listar_expedientes_pendientes($datos);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Datos registros con éxito',
-                'data' =>   $listarmotivos
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Datos registros con éxito',
+            'data' =>   $listarmotivos
+        ]);
     }
     public function detalleexpedientependiente(Request $request)
     {
-        try {
-            $datos =  $request->all();
-            $listarmotivos = $this->AtencionesService->detalle_expediente_pendiente($datos);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Datos registros con éxito',
-                'data' =>   $listarmotivos
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $datos =  $request->all();
+        $listarmotivos = $this->AtencionesService->detalle_expediente_pendiente($datos);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Datos registros con éxito',
+            'data' =>   $listarmotivos
+        ]);
     }
     public function buscar_id(Request $request)
     {
-        try {
-            $data = $this->AtencionesService->buscar_id_area_p();
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Id recibido con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $data = $this->AtencionesService->buscar_id_area_p();
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Id recibido con éxito',
+            'data' =>   $data
+        ]);
     }
     public function lista_filtros_busqueda(Request $request)
     {
-        try {
-            $datos =  $request->all();
-            $datos = $this->AtencionesService->lista_filtros_busqueda($datos);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Data recibida con éxito',
-                'data' =>   $datos
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $datos =  $request->all();
+        $datos = $this->AtencionesService->lista_filtros_busqueda($datos);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Data recibida con éxito',
+            'data' =>   $datos
+        ]);
     }
     public function lista_motivos_reportes(Request $request)
     {
-        try {
-            $datos =  $request->all();
-            $data = $this->AtencionesService->lista_motivos_reportes($datos);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Data recibida con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $datos =  $request->all();
+        $data = $this->AtencionesService->lista_motivos_reportes($datos);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Data recibida con éxito',
+            'data' =>   $data
+        ]);
     }
     public function recepcionarexpediente(Request $request)
     {
-        try {
-            $usuario = $request->JWT_username;
-            $datos =  implode('', $request->data);
+        $usuario = $request->JWT_username;
+        $datos =  implode('', $request->data);
 
-            $recepcioon = $this->AtencionesService->recepcionar_expediente($datos, $usuario);
+        $recepcioon = $this->AtencionesService->recepcionar_expediente($datos, $usuario);
 
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Datos registros con éxito',
-                'data' =>   $recepcioon
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Datos registros con éxito',
+            'data' =>   $recepcioon
+        ]);
     }
     public function listaexpedientesrecepcionados(Request $request)
     {
-        try {
-            $datos =  $request->all();
-            $recepcionados = $this->AtencionesService->listar_expedientes_recepcionados($datos);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado de expedientes obtenido con éxito',
-                'data' =>   $recepcionados
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $datos =  $request->all();
+        $recepcionados = $this->AtencionesService->listar_expedientes_recepcionados($datos);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado de expedientes obtenido con éxito',
+            'data' =>   $recepcionados
+        ]);
     }
     public function listarderivacion(Request $request)
     {
-        try {
-            $data =  $request->all();
-            $recepcionados = $this->AtencionesService->listar_derivacion($data);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado de expedientes obtenido con éxito',
-                'data' =>   $recepcionados
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $data =  $request->all();
+        $recepcionados = $this->AtencionesService->listar_derivacion($data);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado de expedientes obtenido con éxito',
+            'data' =>   $recepcionados
+        ]);
     }
     public function lista_expedientes_derivados(Request $request)
     {
-        try {
-            $data =  $request->all();
-            $derivados = $this->AtencionesService->lista_expedientes_derivados($data);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado de expedientes obtenido con éxito',
-                'data' =>   $derivados
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $data =  $request->all();
+        $derivados = $this->AtencionesService->lista_expedientes_derivados($data);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado de expedientes obtenido con éxito',
+            'data' =>   $derivados
+        ]);
     }
     public function buscar_expedientes(Request $request)
     {
-        try {
-            $data =  $request->all();
-            $derivados = $this->AtencionesService->buscar_expedientes($data);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado de expedientes obtenido con éxito',
-                'data' =>   $derivados
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $data =  $request->all();
+        $derivados = $this->AtencionesService->buscar_expedientes($data);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado de expedientes obtenido con éxito',
+            'data' =>   $derivados
+        ]);
     }
     public function lista_tipos_busqueda(Request $request)
     {
-        try {
-
-            $data =  $request->all();
-            $tipos = $this->AtencionesService->lista_tipos_busqueda($data);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado de expedientes obtenido con éxito',
-                'data' =>   $tipos
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $data =  $request->all();
+        $tipos = $this->AtencionesService->lista_tipos_busqueda($data);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado de expedientes obtenido con éxito',
+            'data' =>   $tipos
+        ]);
     }
-
-
-
 
     public function listarareas(Request $request)
     {
-        try {
+        $datos =  $request->all();
+        $areas = $this->AtencionesService->listar_areas($datos);
 
-            // $JWT_token = $request->JWT_token;
-            // $user = $this->authService->user_magic_ad_match($JWT_token);
-            $datos =  $request->all();
-            $areas = $this->AtencionesService->listar_areas($datos);
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado de areas obtenido con éxito',
-                'data' =>   $areas
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado de areas obtenido con éxito',
+            'data' =>   $areas
+        ]);
     }
     public function extornarexpediente(Request $request)
     {
-        try {
-            $JWT_token = $request->JWT_token;
-            $usuario = $this->authService->user_magic_ad_match($JWT_token);
-            $datos =  $request->all();
-            $extorno = $this->AtencionesService->extornar_expediente($datos, $usuario);
+        $JWT_token = $request->JWT_token;
+        $usuario = $this->authService->user_magic_ad_match($JWT_token);
+        $datos =  $request->all();
+        $extorno = $this->AtencionesService->extornar_expediente($datos, $usuario);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Listado de areas obtenido con éxito',
-                'data' =>   $extorno
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Listado de areas obtenido con éxito',
+            'data' =>   $extorno
+        ]);
     }
     public function cargardetalledocumentorecepcionados(Request $request)
     {
-        try {
-            $datos =  $request->all();
-            $data = $this->AtencionesService->cargar_detalle_documento($datos);
+        $datos =  $request->all();
+        $data = $this->AtencionesService->cargar_detalle_documento($datos);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Información obtenida con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Información obtenida con éxito',
+            'data' =>   $data
+        ]);
     }
     public function grabardocumentorecepcionados(Request $request)
     {
-        try {
-            $datos =  $request->all();
-            $data = $this->AtencionesService->grabar_documento($datos);
+        $datos =  $request->all();
+        $data = $this->AtencionesService->grabar_documento($datos);
 
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Información obtenida con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Información obtenida con éxito',
+            'data' =>   $data
+        ]);
     }
 
     public function mostrardetallenotificacion(Request $request)
     {
-        try {
-            $data = $this->AtencionesService->notificacion_detalle($request['id']);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Información obtenida con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $data = $this->AtencionesService->notificacion_detalle($request['id']);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Información obtenida con éxito',
+            'data' =>   $data
+        ]);
     }
     public function listanotificacion(Request $request)
     {
-        try {
-            $data = $this->AtencionesService->lista_notificacion($request['anio'],$request['numero'],$request['pase'],$request['area'],$request['tipo']);
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Información obtenida con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $data = $this->AtencionesService->lista_notificacion($request['anio'],$request['numero'],$request['pase'],$request['area'],$request['tipo']);
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Información obtenida con éxito',
+            'data' =>   $data
+        ]);
     }
     public function eliminarnotificacion(Request $request)
     {
-        try {
-            $JWT_token = $request->JWT_token;
-            $usuario = $this->authService->user_magic_ad_match($JWT_token);
-            $data = $this->AtencionesService->elimina_notificacion($request['id'],$usuario );
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Información obtenida con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        $JWT_token = $request->JWT_token;
+        $usuario = $this->authService->user_magic_ad_match($JWT_token);
+        $data = $this->AtencionesService->elimina_notificacion($request['id'],$usuario );
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Información obtenida con éxito',
+            'data' =>   $data
+        ]);
     }
     public function cerrar_expediente(Request $request)
     {
-        try {
+        $datos =  $request->all();
+        $data = $this->AtencionesService->cerrar_expediente($datos );
 
-            $datos =  $request->all();
-            $data = $this->AtencionesService->cerrar_expediente($datos );
-
-            return response()->json([
-                'success' => true,
-                'mensaje' => 'Información obtenida con éxito',
-                'data' =>   $data
-            ]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'mensaje' => $e->getMessage()
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Información obtenida con éxito',
+            'data' =>   $data
+        ]);
     }
-
-
-
-
-
-
-
-
 }
